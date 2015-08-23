@@ -16,6 +16,8 @@ $proxy_url = getenv('PROXY_URL') ?: 'http://proxy.g0v.ronny.tw/';
 <div id="message"></div>
 分享網址: <input type="text" readonly="readonly" id="share-url" size="90"><br>
 短網址: <input type="text" readonly="readonly" id="short-url" size="90"><br>
+Viewer網址: <input type="text" readonly="readonly" id="viewer-url" size="90"><br>
+Editor網址: <input type="text" readonly="readonly" id="editor-url" size="90"><br>
 <a href="#" id="full-version">維基百科 InfoBox 及 JSON 轉換版</a>
 <div id="full-area" style="display:none">
 <div id="wiki-area">
@@ -87,6 +89,8 @@ $('#form').submit(function(e){
             $('#wiki').text(to_wiki_infobox(result));
             $('#share-url').val(result["連結"]["列表"]);
             $('#short-url').val(result["連結"]["列表短網址"]);
+            $('#viewer-url').val(result["連結"]["列表短網址"] + '/' + result['裁判日期'].SOURCE + '/' + result['jcheck'] + '/viewer');
+            $('#editor-url').val(result["連結"]["列表短網址"] + '/' + result['裁判日期'].SOURCE + '/' + result['jcheck'] + '/editor');
         });
 });
 </script>

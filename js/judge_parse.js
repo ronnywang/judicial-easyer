@@ -228,7 +228,7 @@ var parse_from_print_page = function(html, url){
     var jcheck;
     var matches = url.match('jcheck=([0-9]*)');
     jcheck = matches[1];
-    result['裁判類別']['jcheck'] = jcheck;
+    result['jcheck'] = jcheck;
 
     matches = url.match('v_court=([A-Z]*)([^&]*)');
     if (matches) {
