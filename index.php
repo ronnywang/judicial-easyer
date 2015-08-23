@@ -84,8 +84,13 @@ $types = array(
     'P' => '公懲',
 );
 
-if ($_SERVER['REQUEST_URI'] == '/js/judge_parse.js') {
-    readfile('js/judge_parse.js');
+if (in_array($_SERVER['REQUEST_URI'], array('/js/judge_parse.js', '/js/text_parse.js'))) {
+    readfile(__DIR__ . ltrim($_SERVER['REQUEST_URI']));
+    exit;
+}
+if (in_array($_SERVER['REQUEST_URI'], array('/js/text.css'))) {
+    header('Content-Type: text/css');
+    readfile(__DIR__ . ltrim($_SERVER['REQUEST_URI']));
     exit;
 }
 
@@ -94,7 +99,7 @@ if ($_SERVER['REQUEST_URI'] == '/') {
     exit;
 }
 
-list(, $court_id, $court_type, $year, $case_word, $case_no) = explode('/', urldecode($_SERVER['REQUEST_URI']));
+list(, $court_id, $court_type, $year, $case_word, $case_no, $jdate, $jcheck, $method) = explode('/', urldecode($_SERVER['REQUEST_URI']));
 if (!$courts[$court_id]) {
     $title = "找不到法院 {$court_id}";
     $link = null;
@@ -104,6 +109,22 @@ if (!$courts[$court_id]) {
 } else {
     $title = "{$courts[$court_id]}{$types[$court_type]} {$year}年度{$case_word}字第{$case_no}號";
     $link = "http://jirs.judicial.gov.tw/FJUD/FJUDQRY02_1.aspx?cw=1&v_court=" . urlencode($court_id . ' ' . $courts[$court_id]) . "&v_sys={$court_type}&jud_year={$year}&jud_case=" . urlencode($case_word) . "&jud_no={$case_no}&jud_title=&keyword=&sdate=19110101&edate=99991231&searchkw=";
+}
+
+if ($method == 'editor') {
+    $params = array();
+    $params[] = 'jrecno=' . urlencode(implode(',', array($year, $case_word, $case_no, $jdate + 19110000, $jcheck)));
+    $params[] = 'v_court=' . urlencode($court_id . ' ' . $courts[$court_id]);
+    $params[] = 'v_sys=' . urlencode($court_type);
+    $params[] = 'jyear=' . urlencode($year);
+    $params[] = 'jcase=' . urlencode($case_word);
+    $params[] = 'jno=' . intval($case_no);
+    $params[] = 'jdate=' . intval($jdate);
+    $params[] = 'jcheck=' . intval($jcheck);
+    $url = 'http://jirs.judicial.gov.tw/FJUD/PrintFJUD03_0.aspx?' . implode('&', $params);
+
+    include('editor.php');
+    exit;
 }
 
 ?>
