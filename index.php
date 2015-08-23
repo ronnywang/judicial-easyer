@@ -111,7 +111,7 @@ if (!$courts[$court_id]) {
     $link = "http://jirs.judicial.gov.tw/FJUD/FJUDQRY02_1.aspx?cw=1&v_court=" . urlencode($court_id . ' ' . $courts[$court_id]) . "&v_sys={$court_type}&jud_year={$year}&jud_case=" . urlencode($case_word) . "&jud_no={$case_no}&jud_title=&keyword=&sdate=19110101&edate=99991231&searchkw=";
 }
 
-if ($method == 'editor') {
+if ($method == 'editor' or $method == 'viewer') {
     $params = array();
     $params[] = 'jrecno=' . urlencode(implode(',', array($year, $case_word, $case_no, $jdate + 19110000, $jcheck)));
     $params[] = 'v_court=' . urlencode($court_id . ' ' . $courts[$court_id]);
@@ -123,7 +123,7 @@ if ($method == 'editor') {
     $params[] = 'jcheck=' . intval($jcheck);
     $url = 'http://jirs.judicial.gov.tw/FJUD/PrintFJUD03_0.aspx?' . implode('&', $params);
 
-    include('editor.php');
+    include($method . '.php');
     exit;
 }
 
