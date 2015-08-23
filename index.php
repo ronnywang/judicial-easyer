@@ -84,8 +84,13 @@ $types = array(
     'P' => '公懲',
 );
 
+if ($_SERVER['REQUEST_URI'] == '/js/judge_parse.js') {
+    readfile('js/judge_parse.js');
+    exit;
+}
+
 if ($_SERVER['REQUEST_URI'] == '/') {
-    readfile('index.html');
+    include('mainpage.php');
     exit;
 }
 

@@ -1,3 +1,6 @@
+<?php
+$proxy_url = getenv('PROXY_URL') ?: 'http://proxy.g0v.ronny.tw/';
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,7 +25,7 @@ Wiki Infobox:
 Result:
 <textarea style="width:100%; height: 500px" id="textarea"></textarea>
 </div>
-<script src="judge_parse.js"></script>
+<script src="js/judge_parse.js"></script>
 <script>
 $('#full-version').click(function(e){
     e.preventDefault();
@@ -31,7 +34,7 @@ $('#full-version').click(function(e){
 $('#form').submit(function(e){
         e.preventDefault();
         var url = $('#url').val();
-        var proxy_url = 'http://proxy.g0v.ronny.tw/proxy.php?url=' + encodeURIComponent(url);
+        var proxy_url = <?= json_encode($proxy_url) ?> + '/proxy.php?url=' + encodeURIComponent(url);
 
         if (url.match('/FJUD/FJUDQRY03_1.aspx')) { // 單一判決頁
             var type = 'FJUDQRY03_1';
