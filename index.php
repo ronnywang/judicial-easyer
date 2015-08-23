@@ -84,6 +84,11 @@ $types = array(
     'P' => '公懲',
 );
 
+if ($_SERVER['REQUEST_URI'] == '/') {
+    readfile('index.html');
+    exit;
+}
+
 list(, $court_id, $court_type, $year, $case_word, $case_no) = explode('/', urldecode($_SERVER['REQUEST_URI']));
 if (!$courts[$court_id]) {
     $title = "找不到法院 {$court_id}";
