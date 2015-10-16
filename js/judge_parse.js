@@ -430,6 +430,20 @@ var parse_court = function(str, old_result){
     for (var i in map) {
         year_word = year_word.replace(new RegExp(i, 'g'), map[i]);
     }
+    // 處理 「九十一」 或是 「十九」 或是 「九十」
+    year_word = year_word.replace(new RegExp('([0-9]?)十([0-9]?)'), function(a1, a2, a3) {
+        if (a2 != '' && a3 != '') {
+            return a2 + '' + a3;
+        }
+        if (a2 == '' && a3 == '') {
+            return '10';
+        }
+        if (a2 == '') {
+            return '1' + a3;
+        }
+
+        return a2 + '0';
+    });
     var matches = year_word.match(/([0-9]*)年度?(.*)字第([0-9]*)號/);
     if (matches) {
         var year = parseInt(matches[1], 10);
