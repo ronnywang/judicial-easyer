@@ -7,8 +7,25 @@ $proxy_url = getenv('PROXY_URL') ?: 'http://proxy.g0v.ronny.tw/';
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>判決書 Parser</title>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap.css">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 </head>
 <body>
+<nav class="navbar navbar-default">
+    <div class="navbar-header">
+        <a class="navbar-brand" href="/">判決書小幫手</a>
+        <ul class="navbar-nav nav">
+            <li>
+            <a href="https://github.com/ronnywang/judicial-easyer">GitHub</a>
+            </li>
+            <li>
+            <a href="http://ronny.tw/">@ronnywang</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<div class="container">
+
 <form method="get" id="form">
     URL: <input type="text" size="100" id="url" placeholder="請貼上判決的友善列印頁網址，或者是判決書第一行也就是像「臺灣臺北地方法院刑事判決 100年度某字5566號」">
     <button type="submit">GET</button>
@@ -26,6 +43,7 @@ Wiki Infobox:
 </div>
 Result:
 <textarea style="width:100%; height: 500px" id="textarea"></textarea>
+</div>
 </div>
 <script src="js/judge_parse.js"></script>
 <script>
