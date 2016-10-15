@@ -1,6 +1,6 @@
 # judicial-easyer
 
-這是 http://juducial.ronny.tw/ 的原始碼，因為 [司法院法學資料庫](jirs.judicial.gov.tw) 有擋外連，
+這是 http://judicial.ronny.tw/ 的原始碼，因為 [司法院法學資料庫](jirs.judicial.gov.tw) 有擋外連，
 使得判決書難以分享討論，這邊幫判決書可以產生短網址，進而希望能夠成為判決書的 parser。
 
 檔案說明
